@@ -1,6 +1,6 @@
 ﻿using Logsquare.Domain;
 using Logsquare.Dto;
-using Logsquare.Application;
+using Logsquare.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

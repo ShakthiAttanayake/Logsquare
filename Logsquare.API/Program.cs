@@ -1,5 +1,6 @@
-using Logsquare.Application;
 using Logsquare.Infrastructure;
+using Logsquare.Query;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Reflection;
@@ -13,8 +14,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddQuery(builder.Configuration);
+
 
 
 var app = builder.Build();

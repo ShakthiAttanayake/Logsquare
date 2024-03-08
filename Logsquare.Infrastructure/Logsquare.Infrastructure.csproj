@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Logsquare.Application\Logsquare.Application.csproj" />
     <ProjectReference Include="..\Logsquare.Domain\Logsquare.Domain.csproj" />
   </ItemGroup>
 

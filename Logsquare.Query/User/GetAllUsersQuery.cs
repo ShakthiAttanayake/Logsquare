@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logsquare.Application
+namespace Logsquare.Query
 {
     public record GetAllUsersQuery() : IRequest<List<UserDto>>;
     

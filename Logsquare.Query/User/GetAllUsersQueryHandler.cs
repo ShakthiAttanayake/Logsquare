@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Logsquare.Application
+namespace Logsquare.Query
 {
     public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<UserDto>>
     {
