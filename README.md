@@ -1,0 +1,2 @@
+# Logsquare
+Logsquare Application
