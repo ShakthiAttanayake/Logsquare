@@ -28,5 +28,14 @@ namespace Logsquare.API.Controllers
             var result = await _mediator.Send(new GetAllUsersQuery());
             return result;
         }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("GetUserById", Name = "GetUserById")]
+        public async Task<UserDto> GetUserById(int Id)
+        {
+            var result = await _mediator.Send(new GetUserByIdQuery(Id));
+            return result;
+        }
     }
 }
