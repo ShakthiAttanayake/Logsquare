@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Application.Common\Logsquare.Application.Common.csproj" />
     <ProjectReference Include="..\Logsquare.Domain\Logsquare.Domain.csproj" />
     <ProjectReference Include="..\Logsquare.Dto\Logsquare.Dto.csproj" />
     <ProjectReference Include="..\Logsquare.Infrastructure\Logsquare.Infrastructure.csproj" />

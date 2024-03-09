@@ -3,11 +3,13 @@ using Logsquare.Domain;
 using Logsquare.Dto;
 using Logsquare.Query;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Logsquare.API.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IMediator _mediator;

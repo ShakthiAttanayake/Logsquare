@@ -1,4 +1,6 @@
-﻿using Logsquare.Infrastructure.Persistance;
+﻿using Logsquare.Application.Common.Interfaces;
+using Logsquare.Infrastructure.Helper;
+using Logsquare.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,7 @@ namespace Logsquare.Infrastructure
             });
 
             services.AddScoped<LogsqureDbContext, LogsqureDbContext>();
+            services.AddScoped<IHashAlgorithm, HashAlgorithm>();
             return services;
         }
     }
