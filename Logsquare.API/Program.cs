@@ -1,10 +1,7 @@
 using Logsquare.Infrastructure;
 using Logsquare.Query;
 using Logsquare.Command;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Reflection;
+using Logsquare.AthenticationProvider;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAuthenticationRegistration(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddQuery(builder.Configuration);
 builder.Services.AddCommand(builder.Configuration);
-
 
 
 var app = builder.Build();
@@ -32,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

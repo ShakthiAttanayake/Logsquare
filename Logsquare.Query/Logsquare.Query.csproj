@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Logsquare.AthenticationProvider\Logsquare.AthenticationProvider.csproj" />
     <ProjectReference Include="..\Logsquare.Dto\Logsquare.Dto.csproj" />
     <ProjectReference Include="..\Logsquare.Infrastructure\Logsquare.Infrastructure.csproj" />
   </ItemGroup>
