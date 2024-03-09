@@ -31,7 +31,6 @@ namespace Logsquare.Query
                         Id = item.Id,
                         UserName = item.UserName,
                         Email = item.Email,
-                        Password = item.Password,
                     });
                 }
                 return userList;

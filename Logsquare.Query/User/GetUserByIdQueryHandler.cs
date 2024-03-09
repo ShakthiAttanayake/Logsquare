@@ -29,7 +29,6 @@ namespace Logsquare.Query
                     Id = user.Id,
                     UserName = user.UserName,
                     Email = user.Email,
-                    Password = user.Password,
                 };
                 return userDto;
             }
