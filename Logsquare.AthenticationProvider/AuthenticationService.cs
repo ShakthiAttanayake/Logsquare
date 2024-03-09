@@ -20,6 +20,11 @@ namespace Logsquare.AthenticationProvider
         }
         public async Task<AuthResult> GenerateJWTTokenAsync(IdentityUser identityUser)
         {
+            int timeOut = 1;
+#if DEBUG
+            timeOut = 10;
+#endif
+
             var authClaims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, identityUser.UserName),
@@ -31,9 +36,10 @@ namespace Logsquare.AthenticationProvider
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:Issuer"],
                 audience: _configuration["JWT:Audience"],
-                expires: DateTime.UtcNow.AddMinutes(1),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256));
+
+                expires: DateTime.UtcNow.AddMinutes(timeOut),
+         claims: authClaims,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)); ; ; ;
 
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
 
