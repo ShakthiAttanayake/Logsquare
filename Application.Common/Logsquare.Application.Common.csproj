@@ -11,4 +11,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Logsquare.Domain\Logsquare.Domain.csproj" />
+    <ProjectReference Include="..\Logsquare.Dto\Logsquare.Dto.csproj" />
+  </ItemGroup>
+
 </Project>

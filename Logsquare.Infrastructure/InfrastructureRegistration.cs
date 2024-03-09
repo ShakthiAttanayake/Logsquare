@@ -19,6 +19,7 @@ namespace Logsquare.Infrastructure
 
             services.AddScoped<LogsqureDbContext, LogsqureDbContext>();
             services.AddScoped<IHashAlgorithm, HashAlgorithm>();
+            services.AddScoped<IExcelExport, ExcelExport>();
             return services;
         }
     }

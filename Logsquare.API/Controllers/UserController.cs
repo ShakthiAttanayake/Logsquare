@@ -6,10 +6,11 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 
 namespace Logsquare.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : Controller
     {
         private readonly IMediator _mediator;
@@ -66,6 +67,15 @@ namespace Logsquare.API.Controllers
         {
             var result = await _mediator.Send(new DeleteUserCommand(id));
             return result;
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(File))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("ExportUsersToExcel", Name = "ExportUsersToExcel")]
+        public async Task<IActionResult> ExportUsersToExcel()
+        {
+            var result = await _mediator.Send(new ExportUsersToExcelQuery());
+            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "users.xlsx");
         }
     }
 }
