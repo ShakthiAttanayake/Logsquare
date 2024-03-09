@@ -42,7 +42,7 @@ namespace Logsquare.Command.User
                         Id = domainUser.Entity.Id,
                         UserName = domainUser.Entity.UserName,
                         Email = domainUser.Entity.Email,
-                        Password = domainUser.Entity.Password 
+                        Password = null 
                     };
         }
     }

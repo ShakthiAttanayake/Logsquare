@@ -23,7 +23,7 @@ namespace Logsquare.Query
             try
             {
                 List<UserDto> userList = new List<UserDto>();
-                var users = await _logsqureDbContext.Users.ToListAsync();
+                var users = await _logsqureDbContext.Users.Where(u => !u.IsDeleted).ToListAsync();
                 foreach (var item in users)
                 {
                     userList.Add(new UserDto()

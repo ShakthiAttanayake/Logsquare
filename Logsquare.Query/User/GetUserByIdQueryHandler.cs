@@ -23,7 +23,7 @@ namespace Logsquare.Query
             try
             {
                 UserDto userDto = new UserDto();
-                var user = await _logsqureDbContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id);
+                var user = await _logsqureDbContext.Users.FirstOrDefaultAsync(u => u.Id == request.Id && !u.IsDeleted);
                 userDto = new UserDto()
                 {
                     Id = user.Id,
