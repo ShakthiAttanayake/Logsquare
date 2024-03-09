@@ -14,5 +14,7 @@ namespace Logsquare.Domain
         public string UserName { get; set; } = null!;
         public string? Email { get; set; }
         public string Password { get; set; }
+        public bool IsDeleted { get; set; } = false;
+        public byte[] Salt { get; set; }
     }
 }

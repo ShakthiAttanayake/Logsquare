@@ -1,4 +1,5 @@
-﻿using Logsquare.Domain;
+﻿using Logsquare.Application.Common.Interfaces;
+using Logsquare.Domain;
 using Logsquare.Dto;
 using Logsquare.Infrastructure.Persistance;
 using MediatR;
@@ -13,18 +14,23 @@ namespace Logsquare.Command.User
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, UserDto>
     {
         private readonly LogsqureDbContext _logsqureDbContext;
+        private readonly IHashAlgorithm _hashAlgorithm;
 
-        public CreateUserCommandHandler(LogsqureDbContext logsqureDbContext)
+        public CreateUserCommandHandler(LogsqureDbContext logsqureDbContext, IHashAlgorithm hashAlgorithm)
         {
             _logsqureDbContext = logsqureDbContext;
+            _hashAlgorithm = hashAlgorithm;
         }
         public async Task<UserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            byte[] salt = null;
+            string password = _hashAlgorithm.HashPasword(request.userDto.Password, out salt);
             Logsquare.Domain.User user = new Logsquare.Domain.User()
             {
                 UserName = request.userDto.UserName,
                 Email = request.userDto.Email,
-                Password = request.userDto.Password
+                Password = password,
+                Salt = salt
             };
 
             var domainUser = await _logsqureDbContext.Users.AddAsync(user);

@@ -2,6 +2,8 @@ using Logsquare.Infrastructure;
 using Logsquare.Query;
 using Logsquare.Command;
 using Logsquare.AthenticationProvider;
+//using Logsquare.Application.Common;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,7 @@ builder.Services.AddAuthenticationRegistration(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddQuery(builder.Configuration);
 builder.Services.AddCommand(builder.Configuration);
-
+//builder.Services.AddCommo
 
 var app = builder.Build();
 

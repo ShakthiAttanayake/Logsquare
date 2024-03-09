@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Logsquare.AthenticationProvider;
 using Logsquare.AthenticationProvider.Models;
+using Logsquare.Application.Common.Interfaces;
 
 namespace Logsquare.Query
 {
@@ -11,33 +12,35 @@ namespace Logsquare.Query
     {
         private readonly LogsqureDbContext _logsqureDbContext;
         private readonly IAuthenticationService _authenticationService;
-        public LoginQueryHandler(LogsqureDbContext logsqureDbContext, IAuthenticationService authenticationService)
+        private readonly IHashAlgorithm _hashAlgorithm;
+
+        public LoginQueryHandler(LogsqureDbContext logsqureDbContext, IAuthenticationService authenticationService, IHashAlgorithm hashAlgorithm)
         {
             _logsqureDbContext = logsqureDbContext;
             _authenticationService = authenticationService; 
+            _hashAlgorithm = hashAlgorithm;
         }
         public async Task<AuthResponseDto> Handle(LoginQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                List<UserDto> userList = new List<UserDto>();
-                var user = await _logsqureDbContext.Users.FirstOrDefaultAsync(u => u.UserName == request.authDto.UserName && u.Password == request.authDto.PassWord);
-
-                if (user != null)
+                var matcheduser =  _logsqureDbContext.Users.FirstOrDefault(u => u.UserName == request.authDto.UserName);
+                if (matcheduser != null) 
                 {
-                    var token = await _authenticationService.GenerateJWTTokenAsync(
+                    if (_hashAlgorithm.VerifyPassword(request.authDto.PassWord,matcheduser.Password,matcheduser.Salt)) 
+                    {
+                        var token = await _authenticationService.GenerateJWTTokenAsync(
                         new IdentityUser()
                         {
-                            UserName = user.UserName,
-                            Password = user.Password
+                            UserName = matcheduser.UserName,
+                            Password = matcheduser.Password
                         }
                         );
-                    return new AuthResponseDto() { Token = token.Token };
+                        return new AuthResponseDto() { Token = token.Token };
+                    }
                 }
-                else 
-                {
-                    return new AuthResponseDto();
-                }
+
+                return new AuthResponseDto();
             }
             catch (Exception)
             {
