@@ -1,5 +1,6 @@
 using Logsquare.Infrastructure;
 using Logsquare.Query;
+using Logsquare.Command;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddQuery(builder.Configuration);
+builder.Services.AddCommand(builder.Configuration);
 
 
 
