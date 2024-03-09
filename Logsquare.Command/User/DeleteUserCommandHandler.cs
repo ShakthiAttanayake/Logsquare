@@ -22,7 +22,9 @@ namespace Logsquare.Command.User
         }
         public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            int rowCount = await _logsqureDbContext.Users.Where(u => u.Id == request.id).ExecuteDeleteAsync();
+            int rowCount = await _logsqureDbContext.Users.Where(u => u.Id == request.id && !u.IsDeleted)
+                                   .ExecuteUpdateAsync(
+                                       setter => setter.SetProperty(ud => ud.IsDeleted, true));
             await _logsqureDbContext.SaveChangesAsync();
             return rowCount > 0;
         }
