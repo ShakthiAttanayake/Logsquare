@@ -10,8 +10,10 @@ using OfficeOpenXml;
 
 namespace Logsquare.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     //[Authorize]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -19,14 +21,10 @@ namespace Logsquare.API.Controllers
         {
             _mediator = mediator;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<User>))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("GetAllUsers", Name = "GetAllUsers")]
+        [HttpGet("GetAllUsers",Name = "GetAllUsers")]
         public async Task<List<UserDto>> GetEmployeeAllowances()
         {
             var result = await _mediator.Send(new GetAllUsersQuery());
@@ -35,7 +33,7 @@ namespace Logsquare.API.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpGet("GetUserById", Name = "GetUserById")]
+        [HttpGet("GetUserById/{Id}", Name = "GetUserById")]
         public async Task<UserDto> GetUserById(int Id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(Id));

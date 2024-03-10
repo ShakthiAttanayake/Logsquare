@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Logsquare.API.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class AuthenticationController
     {
         private readonly IMediator _mediator;
