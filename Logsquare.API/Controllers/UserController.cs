@@ -12,7 +12,7 @@ namespace Logsquare.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -60,7 +60,7 @@ namespace Logsquare.API.Controllers
 
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpDelete("DeleteUser", Name = "DeleteUser")]
+        [HttpDelete("DeleteUser/{Id}", Name = "DeleteUser")]
         public async Task<bool> DeleteUser(int id)
         {
             var result = await _mediator.Send(new DeleteUserCommand(id));
