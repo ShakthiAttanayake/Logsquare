@@ -24,7 +24,7 @@ namespace Logsquare.Query
         {
             try
             {
-                var matcheduser =  _logsqureDbContext.Users.FirstOrDefault(u => u.UserName == request.authDto.UserName);
+                var matcheduser =  _logsqureDbContext.Users.FirstOrDefault(u => u.UserName == request.authDto.UserName && !u.IsDeleted);
                 if (matcheduser != null) 
                 {
                     if (_hashAlgorithm.VerifyPassword(request.authDto.PassWord,matcheduser.Password,matcheduser.Salt)) 
